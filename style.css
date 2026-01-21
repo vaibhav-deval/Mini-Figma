@@ -131,9 +131,10 @@ section {
     }
   }
   div.panel:nth-child(odd) {
+    min-width: 150px;
     display: flex;
     flex-direction: column;
-    max-width: 20%;
+    /* max-width: 20%; */
     div.top {
       padding: var(--space-sm) var(--space-md);
       background: var(--bg-elevated);
@@ -141,7 +142,12 @@ section {
       border-bottom: 2px solid var(--border-subtle);
     }
   }
+  div.propContainer {
+    max-width: 20%;
+  }
   div.layersContainer {
+    max-width: 10%;
+
     .mid {
       margin: var(--space-xs) var(--space-sm);
       flex-grow: 1;
