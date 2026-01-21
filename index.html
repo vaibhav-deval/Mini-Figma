@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Figma</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="theme.css" />
+  </head>
+  <body>
+    <main>
+      <nav>
+        <div class="left">
+          <button id="addRectangle">Add Rectangle</button>
+          <button id="addText">Add Text</button>
+        </div>
+        <div class="left">
+          <button>Export JSON</button>
+          <button>Export HTML</button>
+        </div>
+      </nav>
+      <section>
+        <div class="layersContainer panel">
+          <div class="top">Layers</div>
+          <!-- <div class="mid">Layers</div>
+          <div class="bottom">Layers</div> -->
+        </div>
+        <div class="canvasContainer panel" id="canvas">
+        </div>
+        <div class="peropContainer panel">
+          <div class="top">Properties</div>
+        </div>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+:root {
+  --bg-app: #0f1115;
+  --bg-canvas: #15181e;
+  --bg-panel: #1b1f27;
+  --bg-elevated: #222733;
+
+  --border-subtle: #2a2f3a;
+  --border-strong: #3a4151;
+
+  --text-primary: #e5e7eb;
+  --text-secondary: #9aa4b2;
+  --text-muted: #6b7280;
+
+  --accent-primary: #6366f1;
+  --accent-hover: #818cf8;
+  --accent-active: #4f46e5;
+
+  --selection-border: #6366f1;
+  --selection-bg: rgba(99, 102, 241, 0.15);
+
+  --element-bg: #2b3140;
+  --element-border: #3f475a;
+
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #22c55e;
+
+  /* ===== SPACING (px → rem friendly) ===== */
+  --space-xxs: clamp(2px, 0.2vw, 4px);
+  --space-xs: clamp(4px, 0.4vw, 8px);
+  --space-sm: clamp(8px, 0.6vw, 12px);
+  --space-md: clamp(12px, 1vw, 16px);
+  --space-lg: clamp(16px, 1.5vw, 24px);
+  --space-xl: clamp(24px, 2vw, 32px);
+  --space-2xl: clamp(32px, 3vw, 48px);
+  --space-3xl: clamp(48px, 4vw, 64px);
+
+  /* ===== FONT SIZES ===== */
+  --text-xs: clamp(11px, 0.8vw, 12px); /* captions */
+  --text-sm: clamp(12px, 0.9vw, 13px); /* labels */
+  --text-base: clamp(13px, 1vw, 14px); /* default UI text */
+  --text-md: clamp(14px, 1.1vw, 16px); /* buttons */
+  --text-lg: clamp(16px, 1.4vw, 18px); /* section titles */
+  --text-xl: clamp(18px, 2vw, 22px); /* headers */
+
+  --lh-tight: 1.1;
+  --lh-normal: 1.4;
+  --lh-loose: 1.6;
+
+  /* ===== BORDER RADIUS ===== */
+  --radius-xxs: 2px; /* tiny details */
+  --radius-xs: 4px; /* inputs, list items */
+  --radius-sm: 6px; /* buttons */
+  --radius-md: 8px; /* panels, cards */
+  --radius-lg: 12px; /* modals */
+  --radius-xl: 16px; /* rarely used */
+  --radius-full: 9999px; /* pills */
+
+  --resize-cursor: nwse-resize;
+  --move-cursor: move;
+}
