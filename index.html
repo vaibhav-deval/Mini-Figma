@@ -24,13 +24,33 @@
           <div class="top">Layers</div>
           <div class="mid" id="layers"></div>
           <div class="bottom">
-            <button>Move UP</button>
-            <button>Move Down</button>
+            <button id="MoveUp">Move UP</button>
+            <button id="MoveDown">Move Down</button>
           </div>
         </div>
         <div class="canvasContainer panel" id="canvas"></div>
         <div class="propContainer panel">
           <div class="top">Properties</div>
+          <div class="bottom">
+            <label for="height">
+              Height <input id="height" type="number" />
+            </label>
+            <label for="width">
+              Width <input id="width" type="number" />
+            </label>
+            <label for="x"> X<input id="x" type="number" /> </label>
+            <label for="y"> Y<input id="y" type="number" /> </label>
+            <label for="rotation">
+              Rotation <input id="rotation" type="number" />
+            </label>
+            <label for="background">
+              Background <input id="background" type="text" />
+            </label>
+            <label for="text">
+              Text Content
+              <input id="text" type="text" />
+            </label>
+          </div>
         </div>
       </section>
     </main>

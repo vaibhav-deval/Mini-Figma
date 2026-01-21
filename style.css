@@ -144,6 +144,28 @@ section {
   }
   div.propContainer {
     max-width: 20%;
+    div.bottom {
+      margin: var(--space-lg);
+      padding-bottom: var(--space-sm);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      border-bottom: 2px solid var(--border-subtle);
+
+      label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        input {
+          width: 30%;
+          border: none;
+          outline: none;
+          padding-left: var(--space-md);
+          padding-block:var(--space-xxs);
+          border-radius: var(--radius-sm);
+        }
+      }
+    }
   }
   div.layersContainer {
     max-width: 10%;

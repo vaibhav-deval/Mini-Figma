@@ -25,7 +25,6 @@
   --warning: #f59e0b;
   --success: #22c55e;
 
-  /* ===== SPACING (px → rem friendly) ===== */
   --space-xxs: clamp(2px, 0.2vw, 4px);
   --space-xs: clamp(4px, 0.4vw, 8px);
   --space-sm: clamp(8px, 0.6vw, 12px);
@@ -35,27 +34,24 @@
   --space-2xl: clamp(32px, 3vw, 48px);
   --space-3xl: clamp(48px, 4vw, 64px);
 
-  /* ===== FONT SIZES ===== */
-  --text-xs: clamp(11px, 0.8vw, 12px); /* captions */
-  --text-sm: clamp(12px, 0.9vw, 13px); /* labels */
-  --text-base: clamp(13px, 1vw, 14px); /* default UI text */
-  --text-md: clamp(14px, 1.1vw, 16px); /* buttons */
-  --text-lg: clamp(16px, 1.4vw, 18px); /* section titles */
-  --text-xl: clamp(18px, 2vw, 22px); /* headers */
+  --text-xs: clamp(11px, 0.8vw, 12px);
+  --text-sm: clamp(12px, 0.9vw, 13px);
+  --text-base: clamp(13px, 1vw, 14px);
+  --text-md: clamp(14px, 1.1vw, 16px);
+  --text-lg: clamp(16px, 1.4vw, 18px);
+  --text-xl: clamp(18px, 2vw, 22px);
 
   --lh-tight: 1.1;
   --lh-normal: 1.4;
   --lh-loose: 1.6;
 
-  /* ===== BORDER RADIUS ===== */
-  --radius-xxs: 2px; /* tiny details */
-  --radius-xs: 4px; /* inputs, list items */
-  --radius-sm: 6px; /* buttons */
-  --radius-md: 8px; /* panels, cards */
-  --radius-lg: 12px; /* modals */
-  --radius-xl: 16px; /* rarely used */
-  --radius-full: 9999px; /* pills */
-
-  --resize-cursor: nwse-resize;
+  --radius-xxs: 2px;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  
   --move-cursor: move;
 }

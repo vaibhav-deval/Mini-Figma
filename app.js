@@ -1,3 +1,5 @@
+const MoveDown = document.querySelector("#MoveDown");
+const MoveUp = document.querySelector("#MoveUp");
 const canvas = document.querySelector("#canvas");
 const layers = document.querySelector("#layers");
 const addTextBtn = document.querySelector("#addText");
@@ -23,13 +25,9 @@ const STORAGE_KEY = "mini-figma-state";
 
 let allElements = [];
 
-/* ================= HELPERS ================= */
-
 const uid = () => crypto.randomUUID();
 
 const getElemData = (id) => allElements.find((el) => el.id === id);
-
-/* ================= STORAGE ================= */
 
 function saveToLocalStorage() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(allElements));
@@ -39,8 +37,6 @@ function loadFromLocalStorage() {
   const data = localStorage.getItem(STORAGE_KEY);
   if (data) allElements = JSON.parse(data);
 }
-
-/* ================= CREATE ================= */
 
 function createElem(type) {
   const id = uid();
@@ -83,8 +79,6 @@ function addElem(type) {
   renderLayer(elem);
   saveToLocalStorage();
 }
-
-/* ================= RENDER ================= */
 
 function renderElement(elem) {
   const div = document.createElement("div");
@@ -133,8 +127,6 @@ function loadFromState() {
   });
 }
 
-/* ================= SELECTION ================= */
-
 function selectElement(elem) {
   document.querySelectorAll(".elem").forEach((e) => {
     e.classList.remove("selected");
@@ -151,9 +143,8 @@ function selectElement(elem) {
   selectedId = elem.dataset.id;
   selectedElem.classList.add("selected");
   addResizeController(selectedElem);
+  
 }
-
-/* ================= HANDLES ================= */
 
 function addResizeController(elem) {
   elem.insertAdjacentHTML(
@@ -165,8 +156,6 @@ function addResizeController(elem) {
      <div class="handle rotate"></div>`,
   );
 }
-
-/* ================= EVENTS ================= */
 
 canvas.addEventListener("mousedown", (e) => {
   const elem = e.target.closest(".elem");
@@ -294,8 +283,6 @@ document.addEventListener("mouseup", () => {
   saveToLocalStorage();
 });
 
-/* ================= KEYBOARD ================= */
-
 document.addEventListener("keydown", (e) => {
   if (!selectedElem) return;
 
@@ -328,8 +315,6 @@ document.addEventListener("keydown", (e) => {
   saveToLocalStorage();
 });
 
-/* ================= DELETE ================= */
-
 function deleteElement(id) {
   allElements = allElements.filter((el) => el.id !== id);
 
@@ -342,8 +327,6 @@ function deleteElement(id) {
   saveToLocalStorage();
 }
 
-/* ================= INIT ================= */
-
 addTextBtn.onclick = () => addElem("text");
 addRectangleBtn.onclick = () => addElem("rect");
 
@@ -351,3 +334,67 @@ window.addEventListener("load", () => {
   loadFromLocalStorage();
   loadFromState();
 });
+function setZindexes() {
+  allElements.forEach((elem, Index) => {
+    elem.zIndex = Index + 1;
+    const model = document.querySelector(`[data-id="${elem.id}"]`);
+    model.style.zIndex = elem.zIndex;
+  });
+}
+function bringForward(id) {
+  const index = allElements.findIndex((el) => el.id === id);
+  if (index === allElements.length - 1) return;
+  [allElements[index], allElements[index + 1]] = [
+    allElements[index + 1],
+    allElements[index],
+  ];
+  setZindexes();
+}
+function sendBackward(id) {
+  const index = allElements.findIndex((el) => el.id === id);
+  if (index === 0) return;
+  [allElements[index], allElements[index - 1]] = [
+    allElements[index - 1],
+    allElements[index],
+  ];
+  setZindexes();
+}
+
+MoveUp.addEventListener("click", () => {
+  if (!selectedElem) return;
+  bringForward(selectedId);
+  loadFromState();
+});
+MoveDown.addEventListener("click", () => {
+  if (!selectedElem) return;
+  sendBackward(selectedId);
+  loadFromState();
+});
+
+const inputs = {
+  width: document.getElementById("width"),
+  height: document.getElementById("height"),
+  x: document.getElementById("x"),
+  y: document.getElementById("y"),
+  rotation: document.getElementById("rotation"),
+  background: document.getElementById("background"),
+  text: document.getElementById("text"),
+};
+Props();
+
+function Props() {
+  // if (!selectedId) return;
+
+  const el = allElements.find((e) => e.id === selectedId);
+  console.log(el);
+
+  inputs.width.value = el.width;
+  inputs.height.value = el.height;
+  inputs.x.value = el.x;
+  inputs.y.value = el.y;
+  inputs.rotation.value = el.rotation;
+  inputs.background.value = el.styles.backgroundColor || "";
+  inputs.text.value = el.text || "";
+
+  inputs.text.disabled = el.type !== "text";
+}
