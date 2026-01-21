@@ -1,4 +1,5 @@
 const canvas = document.querySelector("#canvas");
+const layers = document.querySelector("#layers");
 const addTextBtn = document.querySelector("#addText");
 const addRectangleBtn = document.querySelector("#addRectangle");
 let isResizing = false;
@@ -11,31 +12,32 @@ let offsetY = 0;
 let isRotating = false;
 let startAngle = 0;
 let startRotation = 0;
-
 let selectedElem = null;
+let resizeDir = null;
 let allElements = [
-  {
-    id: 0,
-    type: "text",
-    x: 100,
-    y: 100,
-    width: 120,
-    height: 80,
-    rotation: 0,
-    text: "Hello",
-    zIndex: 1,
-  },
-  {
-    id: 1,
-    type: "rect",
-    x: 100,
-    y: 100,
-    width: 120,
-    height: 80,
-    rotation: 0,
-    zIndex: 2,
-  },
+  // {
+  //   id: 0,
+  //   type: "text",
+  //   x: 100,
+  //   y: 100,
+  //   width: 120,
+  //   height: 80,
+  //   rotation: 0,
+  //   text: "Hello",
+  //   zIndex: 1,
+  // },
+  // {
+  //   id: 1,
+  //   type: "rect",
+  //   x: 100,
+  //   y: 100,
+  //   width: 120,
+  //   height: 80,
+  //   rotation: 0,
+  //   zIndex: 2,
+  // },
 ];
+
 function addElem(elem) {
   const div = createElem(elem);
   canvas.appendChild(div);
@@ -53,6 +55,7 @@ addTextBtn.addEventListener("click", () => addElem("text"));
 addRectangleBtn.addEventListener("click", () => addElem("rect"));
 
 function createElem(type) {
+  const layer = document.createElement("div");
   if (type == "text") {
     const text = document.createElement("div");
     text.classList.add("text", "elem", "selected");
@@ -76,16 +79,26 @@ function createElem(type) {
     allElements.push(newElem);
 
     if (selectedElem) selectedElem.classList.remove("selected");
+    layer.innerText = `Text Box ${allElements.length}`;
+    layer.dataset.id = allElements.length;
+    layer.classList.add("layer");
+    layers.appendChild(layer);
+    layer.addEventListener("click", (e) => {
+      const allElem = document.querySelectorAll(".elem");
+      console.log(e.target.dataset.id);
+
+      selectElem(allElem[e.target.dataset.id - 1]);
+    });
 
     return text;
   } else {
     const rect = document.createElement("div");
     rect.classList.add("rectangle", "elem", "selected");
-    const newId = Math.max(...allElements.map((e) => e.id)) + 1;
-    rect.dataset.id = newId;
+
+    rect.dataset.id = allElements.length;
 
     let newElem = {
-      id: newId,
+      id: allElements.length,
       type: "rect",
       x: 100,
       y: 100,
@@ -103,6 +116,17 @@ function createElem(type) {
     };
     allElements.push(newElem);
     if (selectedElem) selectedElem.classList.remove("selected");
+
+    layer.innerText = `Rectangle ${allElements.length}`;
+    layer.dataset.id = allElements.length;
+    layer.classList.add("layer");
+    layers.appendChild(layer);
+    layer.addEventListener("click", (e) => {
+      const allElem = document.querySelectorAll(".elem");
+      console.log(allElem[e.target.dataset.id - 1]);
+
+      selectElem(allElem[e.target.dataset.id - 1]);
+    });
     return rect;
   }
 }
@@ -205,31 +229,36 @@ canvas.addEventListener("mousemove", (e) => {
     selectedElem.style.left = newLeft + "px";
     selectedElem.style.top = newTop + "px";
   }
-  if (resizeDir.includes("rotate")) {
-    if (isRotating) {
-      const rect = selectedElem.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+  if (isRotating && selectedElem && resizeDir.includes("rotate")) {
+    const rect = selectedElem.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
 
-      const currentAngle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+    const currentAngle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
 
-      const delta = currentAngle - startAngle;
-      const deg = delta * (180 / Math.PI);
+    const delta = currentAngle - startAngle;
+    const deg = delta * (180 / Math.PI);
 
-      const totalRotation = startRotation + deg;
+    const totalRotation = startRotation + deg;
 
-      selectedElem.style.transform = `rotate(${totalRotation}deg)`;
+    selectedElem.style.transform = `rotate(${totalRotation}deg)`;
 
-      selectedElem.dataset.rotation = totalRotation;
-    }
+    selectedElem.dataset.rotation = totalRotation;
   }
 });
 
 document.addEventListener("mouseup", () => {
   isDragging = false;
   isResizing = false;
+  isRotating = false;
   offsetX = 0;
   offsetY = 0;
-  isRotating = false;
   document.body.style.cursor = "default";
 });
+
+function selectElem(elem) {
+  selectedElem.classList.remove("selected");
+  selectedElem = null;
+  selectedElem = elem;
+  selectedElem.classList.add("selected");
+}

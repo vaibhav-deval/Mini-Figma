@@ -13,7 +13,9 @@ body {
 
 main {
   width: 100vw;
+  max-width: 1800px;
   height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   font-family:
@@ -67,6 +69,7 @@ section {
     background: var(--bg-panel);
     flex-grow: 1;
     border: 2px solid var(--border-subtle);
+    max-height: 82vh;
   }
   div.panel:nth-child(even) {
     background: var(--bg-canvas);
@@ -88,7 +91,7 @@ section {
       background: #000;
     }
     div.selected {
-      border: 1px solid var(--border-strong);
+      border: 1px solid var(--selection-border);
       cursor: var(--move-cursor);
       --4px: -4px;
       div.handle {
@@ -136,6 +139,43 @@ section {
       background: var(--bg-elevated);
       font-weight: 500;
       border-bottom: 2px solid var(--border-subtle);
+    }
+  }
+  div.layersContainer {
+    .mid {
+      margin: var(--space-xs) var(--space-sm);
+      flex-grow: 1;
+      border-bottom: 2px solid var(--border-strong);
+      overflow-y: auto;
+      scrollbar-width: none;
+      div.layer {
+        text-align: end;
+        border-radius: var(--radius-xs);
+        padding: var(--space-xxs);
+        margin-block: var(--space-xxs);
+        cursor: pointer;
+        background: var(--selection-bg);
+      }
+    }
+    .bottom {
+      padding: var(--space-sm);
+      margin-bottom: var(--space-sm);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      button {
+        background: var(--accent-primary);
+        outline: none;
+        border: none;
+        padding: var(--space-sm) var(--space-xl);
+        color: var(--text-primary);
+        border-radius: var(--radius-sm);
+      }
+      button:hover {
+        background: var(--accent-hover);
+        transform: translateY(-1px) scale(1.01);
+        transition: all 0.2s linear;
+      }
     }
   }
 }
